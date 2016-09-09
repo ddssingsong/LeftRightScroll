@@ -2,9 +2,9 @@ package com.jhs.leftrightscroll.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 /**
@@ -15,7 +15,8 @@ import android.widget.LinearLayout;
 public class InterceptLinearLayout extends LinearLayout {
     private float lastXIntercept = 0;
     private float lastYIntercept = 0;
-    private int count;
+    private int count;//一次滑动截获的move事件数
+    private boolean flag;//是否拦截了右边上下滑动事件
 
     public InterceptLinearLayout(Context context) {
         super(context);
@@ -33,47 +34,60 @@ public class InterceptLinearLayout extends LinearLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
-        View view1 = getChildAt(1);
+        ViewGroup view1 = (ViewGroup) getChildAt(1);
         view1.dispatchTouchEvent(ev);
         View view = getChildAt(0);
-        view.dispatchTouchEvent(ev);
+
 
         float x = ev.getX();
         float y = ev.getY();
         switch (ev.getAction()) {
             /*如果拦截了Down事件,则子类不会拿到这个事件序列*/
             case MotionEvent.ACTION_DOWN:
+                view.dispatchTouchEvent(ev);
                 lastXIntercept = x;
                 lastYIntercept = y;
                 count = 0;
-                view.setEnabled(true);
-
+                flag = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 final float deltaX = x - lastXIntercept;
                 final float deltaY = y - lastYIntercept;
                 /*根据条件判断是否拦截该事件*/
-
-                Log.i("msg", "左右滑动距离" + deltaX);
-                Log.i("msg", "上下滑动距离" + deltaY);
-
                 if (count == 0) {
+                    //左右滑动
                     if (Math.abs(deltaX) > Math.abs(deltaY)) {
                         view.setEnabled(false);
                         count++;
                     }
+                    //上下滑动
                     if (Math.abs(deltaX) < Math.abs(deltaY)) {
-                        view.setEnabled(true);
-                        count++;
+                        if (view1.onInterceptTouchEvent(ev)) {
+                            flag = true;
+                            count++;
+                        } else {
+                            view.dispatchTouchEvent(ev);
+                            view.setEnabled(true);
+                            flag = false;
+                            count++;
+                        }
+                    }
+                } else {
+                    if (!flag) {
+                        view.dispatchTouchEvent(ev);
                     }
                 }
-
-
                 break;
             case MotionEvent.ACTION_UP:
+                view.dispatchTouchEvent(ev);
                 count = 0;
+                flag = false;
                 view.setEnabled(true);
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                view.dispatchTouchEvent(ev);
+                break;
+
 
         }
         lastXIntercept = x;
@@ -85,36 +99,7 @@ public class InterceptLinearLayout extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        float x = ev.getX();
-        float y = ev.getY();
-        boolean intercepted = super.onTouchEvent(ev);
-        switch (ev.getAction()) {
-            /*如果拦截了Down事件,则子类不会拿到这个事件序列*/
-            case MotionEvent.ACTION_DOWN:
-                lastXIntercept = x;
-                lastYIntercept = y;
-                break;
-            case MotionEvent.ACTION_MOVE:
-                final float deltaX = x - lastXIntercept;
-                final float deltaY = y - lastYIntercept;
-                /*根据条件判断是否拦截该事件*/
-
-                Log.i("msg", "左右滑动距离" + deltaX);
-                Log.i("msg", "上下滑动距离" + deltaY);
-
-                View view = getChildAt(0);
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    view.setEnabled(false);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-
-        }
-        lastXIntercept = x;
-        lastYIntercept = y;
-
-        return intercepted;
+        return super.onTouchEvent(ev);
     }
 
 

@@ -42,39 +42,8 @@ public class SyncHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        float x = ev.getX();
-//        float y = ev.getY();
-//
-//        switch (ev.getAction()) {
-//            /*如果拦截了Down事件,则子类不会拿到这个事件序列*/
-//            case MotionEvent.ACTION_DOWN:
-//                lastXIntercept = x;
-//                lastYIntercept = y;
-//                intercepted = false;
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                final float deltaX = x - lastXIntercept;
-//                final float deltaY = y - lastYIntercept;
-//                /*根据条件判断是否拦截该事件*/
-//
-//                Log.i("msg", "左右滑动距离" + deltaX);
-//                Log.i("msg", "上下滑动距离" + deltaY);
-//
-//                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-//                    intercepted = true;
-//                }
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                break;
-//
-//        }
-//        lastXIntercept = x;
-//        lastYIntercept = y;
-//
-//        return intercepted;
-
-
-        return super.onInterceptTouchEvent(ev);
+        boolean flag = super.onInterceptTouchEvent(ev);
+        return flag;
     }
 
     @Override

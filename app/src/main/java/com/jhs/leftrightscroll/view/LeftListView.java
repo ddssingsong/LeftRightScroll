@@ -35,14 +35,10 @@ public class LeftListView extends ListView {
         return flag;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        return super.onTouchEvent(ev);
-    }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        boolean flag = super.dispatchTouchEvent(ev);
+    public boolean onTouchEvent(MotionEvent ev) {
+        boolean flag = super.onTouchEvent(ev);
         return flag;
     }
 }
