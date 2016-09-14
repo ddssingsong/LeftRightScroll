@@ -16,6 +16,7 @@ import com.jhs.leftrightscroll.bean.Fund;
 import com.jhs.leftrightscroll.view.LeftListView;
 import com.jhs.leftrightscroll.view.RightListView;
 import com.jhs.leftrightscroll.view.SyncHorizontalScrollView;
+import com.jhs.leftrightscroll.view.UtilTools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,6 +66,11 @@ public class Tab2Fragment extends Fragment {
 
             leftAdapter.addDataToAdapter(leftlList);
             rightAdapter.addDataToAdapter(models);
+
+
+            UtilTools.setListViewHeightBasedOnChildren(leftListView);
+            UtilTools.setListViewHeightBasedOnChildren(rightListView);
+
 
 
         }

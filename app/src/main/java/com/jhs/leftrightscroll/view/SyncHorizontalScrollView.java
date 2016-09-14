@@ -13,6 +13,8 @@ public class SyncHorizontalScrollView extends HorizontalScrollView {
 
     private View mView;
 
+    private float lastx;
+    private float lasty;
 
     public SyncHorizontalScrollView(Context context) {
         super(context);

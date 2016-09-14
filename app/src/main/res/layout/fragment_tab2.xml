@@ -53,52 +53,56 @@
         android:layout_height="1px"
         android:background="#D8D8D8" />
 
-    <com.jhs.leftrightscroll.view.InterceptLinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <!-- 左侧内容的父容器 -->
-
-
-        <com.jhs.leftrightscroll.view.LeftListView
-            android:id="@+id/left_container_listview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none"></com.jhs.leftrightscroll.view.LeftListView>
+            android:orientation="horizontal">
+
+            <!-- 左侧内容的父容器 -->
 
 
-        <!-- 右侧内容的父容器 实现水平滚动 -->
-
-        <com.jhs.leftrightscroll.view.SyncHorizontalScrollView
-            android:id="@+id/content_horsv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/right_container"
+            <com.jhs.leftrightscroll.view.LeftListView
+                android:id="@+id/left_container_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <com.jhs.leftrightscroll.view.RightListView
-                    android:id="@+id/right_container_listview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:listSelector="@android:color/transparent"
-                    android:scrollbars="none"></com.jhs.leftrightscroll.view.RightListView>
-            </LinearLayout>
-        </com.jhs.leftrightscroll.view.SyncHorizontalScrollView>
+                android:layout_weight="3"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"></com.jhs.leftrightscroll.view.LeftListView>
 
 
-    </com.jhs.leftrightscroll.view.InterceptLinearLayout>
+            <!-- 右侧内容的父容器 实现水平滚动 -->
 
+            <com.jhs.leftrightscroll.view.SyncHorizontalScrollView
+                android:id="@+id/content_horsv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/right_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.jhs.leftrightscroll.view.RightListView
+                        android:id="@+id/right_container_listview"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:listSelector="@android:color/transparent"
+                        android:scrollbars="none"></com.jhs.leftrightscroll.view.RightListView>
+                </LinearLayout>
+            </com.jhs.leftrightscroll.view.SyncHorizontalScrollView>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

@@ -23,6 +23,8 @@ public class UtilTools {
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
+        Log.i("msg", "中间" + System.currentTimeMillis());
+
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
